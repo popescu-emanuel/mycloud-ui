@@ -1,0 +1,15 @@
+<h1>Home</h1>
+<p>Welcome to myCloud</p>
+
+<div *ngIf="currentUser">
+    <p>You are authenticated as {{currentUser.email}}</p>
+    <p>Your role is:
+        <strong>
+            {{currentUser.roles}}
+        </strong>
+    </p>
+</div>
+<div *ngIf="!currentUser">
+    <p>You are not authenticated</p>
+    <a routerLink="/login">Login</a>
+</div>

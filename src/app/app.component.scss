@@ -1,0 +1,25 @@
+.form-control {
+    box-shadow: none;
+    border-radius: 4px;
+    border-color: #dfe3e8;
+}
+
+.btn-no-outline {
+    background: transparent;
+    border-radius: 2px;
+    color: #999;
+    border-color: transparent;
+    outline: none;
+}
+
+.btn-no-outline:hover {
+    color: #29c68c !important;
+    background: transparent;
+    border-color: transparent;
+    outline: none;
+}
+
+.jumbotron {
+    background-color: whitesmoke;
+}
+

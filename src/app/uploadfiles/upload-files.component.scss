@@ -1,0 +1,49 @@
+.btn-input, .custom-file-label::after {
+    color: #fff;
+    border-color: #29c68c; // Verde
+    background: #29c68c;
+    outline: none;
+}
+
+
+.btn-input-left {
+    border-radius: 10px 15px;
+}
+
+.btn-input-right, .custom-file-label::after {
+    border-radius: 0;
+}
+
+.btn-input:hover {
+    border-color: #26bb84; // Verde
+    background: #26bb84;
+}
+
+.custom-file-label:hover::after  {
+    border-color: #26bb84; // Verde
+    background: #26bb84;
+}
+
+.btn-unavailable {
+    color: #fff;
+    background: #9E9E9E;
+    border-color: #9E9E9E;
+}
+
+
+.fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.5s;
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,61 @@
+<app-uploadfiles (emit)="doRefreshList()" [breadcrumb]="breadcrumb" class="pb-3"></app-uploadfiles>
+
+<table class="table table-hover table-striped pt-4">
+    <thead>
+    <td>#</td>
+    <th>File</th>
+    <th>Size</th>
+    <th>Type</th>
+    <th>Date</th>
+    <th class="td-buttons">Remove</th>
+    <th class="td-buttons">Download</th>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let file of files; let ndx = index">
+        <td>{{ndx + 1}}</td>
+        <td (click)="openFolder(file)">
+            <i [ngClass]="getIcon(file)"></i>
+            {{file.filename}}
+        </td>
+        <td>{{file.size}}</td>
+        <td>{{file.type}}</td>
+        <td>{{file.uploadDate}}</td>
+        <td class="td-buttons">
+            <button type="button" class="btn btn-outline-danger">
+                <i class="fa fa-trash-o"
+                   (click)="delete(file)"></i></button>
+        </td>
+        <td class="td-buttons">
+            <button type="button" class="btn btn-outline-success">
+                <i class="fa fa-download"
+                   (click)="download(file)"></i></button>
+        </td>
+    </tr>
+
+    <tr *ngIf="!files || this.filesLength() === 0" class="text-center">
+        <td [colSpan]="7">There are no files stored on the server.</td>
+    </tr>
+
+    </tbody>
+
+</table>
+
+<div *ngIf="breadcrumb">
+    <button
+        type="button" class="btn btn-outline-danger"
+        id="inputGroupBack"
+        [hidden]="this.breadcrumb.length == 0"
+        (click)="back()">
+        <i class="fa fa-backward">
+        </i>
+        Back
+    </button>
+
+    <div *ngFor="let path of breadcrumb">
+        / {{path}}
+    </div>
+
+</div>
+
+

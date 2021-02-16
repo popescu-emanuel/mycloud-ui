@@ -1,0 +1,69 @@
+<div class="input-group">
+
+    <div class="input-group-prepend">
+                <!-- class="input-group-text btn-input btn-input-left" -->
+        <button
+            class="btn-input input-group-text btn-input-left"
+            id="inputGroupCreateDir"
+            (click)="openFormModal()">
+            <i class="fa fa-folder">
+            </i>
+            New folder
+        </button>
+
+        <button
+                class="btn-unavailable input-group-text btn-input-left fade-in"
+                id="inputGroupFileAddon01"
+                [hidden]="!selectedFiles"
+                (click)="upload()">
+            <i class="fa fa-cloud-upload" >
+                Upload
+            </i>
+        </button>
+
+        <button
+            class="btn-unavailable input-group-text btn-input-left fade-in"
+            id="inputGroupFileClean"
+            [hidden]="!selectedFiles" (click)="clean()">
+            <i class="fa fa-recycle">
+                Clean
+            </i>
+        </button>
+
+
+
+
+    </div>
+
+    <div class="custom-file">
+        <input type="file"
+               class="custom-file-input"
+               id="inputGroupFile01"
+               aria-describedby="inputGroupFileAddon01"
+               (change)="selectFile($event)"
+               multiple>
+        <label class="custom-file-label" for="inputGroupFile01">
+            {{inputLabelText}}
+        </label>
+    </div>
+
+</div>
+
+<div *ngIf="currentFile" class="progress pt-2" style="height: 3em;" >
+    <div
+        class=" progress-bar progress-bar-info progress-bar-striped bg-success "
+        role="progressbar"
+        attr.aria-valuenow="{{ progress }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [ngStyle]="{ width: progress + '%' }"
+    >
+        {{ progress }}%
+    </div>
+
+</div>
+
+<div class="alert alert-light text-center" role="alert" *ngIf="message">
+    {{ message }}
+</div>
+

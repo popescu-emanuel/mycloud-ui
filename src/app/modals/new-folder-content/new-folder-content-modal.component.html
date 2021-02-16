@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <button type="button" class="btn close" (click)="activeModal.dismiss('Cross click')">
+        <i class="fa fa-times-circle" ></i>
+    </button>
+</div>
+
+<form [formGroup]="folderForm" (ngSubmit)="createDir()" >
+    <div class="modal-boy">
+        <div class="container">
+            <div class="form-group">
+                <label for="foldername">Folder name:</label>
+                <input type="text"
+                       class="form-control"
+                       id="foldername"
+                       formControlName="folderName" />
+            </div>
+
+        </div>
+
+        <div class="modal-footer text-center">
+            <button [disabled]="!folderForm.valid"
+                    class="btn btn-outline-info">
+                Create
+            </button>
+        </div>
+    </div>
+
+</form>
+
