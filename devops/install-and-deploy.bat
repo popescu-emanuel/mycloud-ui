@@ -10,6 +10,8 @@ REM mvn clean install -DskipTests
 
 cls
 
+cd ..
+
 echo.
 echo # Building the docker image
 docker build -t %project% .
@@ -35,3 +37,4 @@ echo eg. install-and-deploy 1.0.0
 echo.
 
 :FINISH
+cd devops
