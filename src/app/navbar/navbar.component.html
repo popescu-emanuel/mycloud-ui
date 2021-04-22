@@ -24,7 +24,7 @@
         <div class="navbar-nav ml-auto">
             <div *ngIf="authService.isAuthenticated" class="form-inline">
                 <a href="#" class="nav-item nav-link">
-                    Hi, {{this.currentUser.email}}!
+                    Hello, {{this.currentUser.email}}!
                 </a>
 
                 <a href="#" class="nav-item nav-link" routerLink="/settings">
