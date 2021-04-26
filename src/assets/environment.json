@@ -1,0 +1,3 @@
+{
+    "apiUrl": "${KUBERNETES_HOST}"
+}

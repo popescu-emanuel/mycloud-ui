@@ -24,6 +24,11 @@ import { TokenexpiredComponent } from './tokenexpired/tokenexpired.component';
 import {NgxGaugeModule} from "ngx-gauge";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {EnvSettingsHttpService} from './env-settings/env-settings-http.service';
+
+export function app_Init(settingsHttpService: EnvSettingsHttpService) {
+    return () => settingsHttpService.initializeApp();
+}
 
 @NgModule({
     declarations: [
