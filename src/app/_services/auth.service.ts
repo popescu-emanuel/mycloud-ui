@@ -5,7 +5,7 @@ import {User} from '../_models/user';
 import {map} from 'rxjs/operators';
 import {RoleEnum} from '../_models/roleEnum';
 import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
-import {environment} from "../../environments/environment";
+import {environment} from '../../environments/environment';
 
 const AUTH_API = environment.baseUrl + '/api/auth/';
 
@@ -34,6 +34,7 @@ export class AuthService {
     }
 
     login(email: string, password: string) {
+        console.log('Calling ' + environment.baseUrl);
         return this.http.post<any>(AUTH_API + `signin`, {email, password})
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
@@ -70,8 +71,8 @@ export class AuthService {
         return this.currentUserValue.roles.indexOf(RoleEnum.Admin.toString()) > -1;
     }
 
-    isTokenExpired(){
-        let token = this.currentUserValue.token;
+    isTokenExpired() {
+        const token = this.currentUserValue.token;
         return jwtHelper.isTokenExpired(token);
     }
 
