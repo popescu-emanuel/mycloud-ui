@@ -24,8 +24,8 @@ export class AuthGuardService implements CanActivate {
             console.log('Route data ' + route.data.roles);
             console.log('Current user roles ' + currentUser.roles);
 
-            if(this.authenticationService.isTokenExpired()) {
-                console.log("Token expired. Please authenticate");
+            if (this.authenticationService.isTokenExpired()) {
+                console.log('Token expired. Please authenticate');
                 this.authenticationService.logout();
                 this.router.navigate(['/tokenexpired']);
                 return false;

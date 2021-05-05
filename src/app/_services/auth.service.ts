@@ -4,10 +4,9 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../_models/user';
 import {map} from 'rxjs/operators';
 import {RoleEnum} from '../_models/roleEnum';
-import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
-import {environment} from '../../environments/environment';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
-const AUTH_API = environment.baseUrl + '/api/auth/';
+import {environment} from '../../environments/environment';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -20,12 +19,15 @@ const jwtHelper = new JwtHelperService();
 })
 export class AuthService {
 
+    private AUTH_API: string = environment.baseUrl;
+
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
+        this.AUTH_API = this.AUTH_API + '/api/auth';
     }
 
     public get currentUserValue(): User {
@@ -34,8 +36,8 @@ export class AuthService {
     }
 
     login(email: string, password: string) {
-        console.log('Calling ' + environment.baseUrl);
-        return this.http.post<any>(AUTH_API + `signin`, {email, password})
+        console.log('Calling ' + this.AUTH_API);
+        return this.http.post<any>(this.AUTH_API + `/signin`, {email, password})
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 console.log('User: ' + user);
@@ -51,7 +53,7 @@ export class AuthService {
 
     register(user: User): Observable<any> {
         console.log('Signup call');
-        return this.http.post<any>(AUTH_API + 'signup', {email: user.email, password: user.password}, httpOptions);
+        return this.http.post<any>(this.AUTH_API + '/signup', {email: user.email, password: user.password}, httpOptions);
     }
 
     logout() {

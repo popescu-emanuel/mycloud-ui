@@ -1,27 +1,34 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {EnvSettings} from './env-settings';
-import {EnvSettingsService} from './env-settings.service';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class EnvSettingsHttpService {
-    constructor(private http: HttpClient, private settingsService: EnvSettingsService) {
+
+    settings: EnvSettings;
+
+    constructor(private http: HttpClient) {
     }
 
     initializeApp(): Promise<any> {
-
+        console.log('Returning promise...');
+        this.http.get('assets/environment.json').subscribe(data => console.log('Data ' + data));
         return new Promise(
             (resolve) => {
-                this.http.get('assets/settings.json')
+                this.http.get('assets/environment.json')
                     .toPromise()
                     .then(response => {
-                            this.settingsService.settings = response as EnvSettings;
+                            console.log('Loading assets');
+                            this.settings = response as EnvSettings;
+                            console.log('Loaded assets ' + response);
                             resolve();
                         }
                     );
             }
         );
+    }
+
+    public get baseUrl() {
+        return 'http://' + this.settings.apiUrl + ':' + this.settings.apiPort;
     }
 }

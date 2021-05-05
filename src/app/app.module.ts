@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -14,21 +14,25 @@ import {AuthInterceptor, authInterceptorProviders} from './_helpers/auth.interce
 import {UploadFilesComponent} from './uploadfiles/upload-files.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ErrorInterceptor} from './_helpers/error-interceptor';
-import { FilesComponent } from './files/files.component';
-import { FooterComponent } from './footer/footer.component';
-import { NewFolderContainerComponent } from './modals/new-folder-container/new-folder-container.component';
-import { NewFolderContentModal } from './modals/new-folder-content/new-folder-content-modal.component';
-import { SettingsComponent } from './settings/settings.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { TokenexpiredComponent } from './tokenexpired/tokenexpired.component';
-import {NgxGaugeModule} from "ngx-gauge";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {FilesComponent} from './files/files.component';
+import {FooterComponent} from './footer/footer.component';
+import {NewFolderContainerComponent} from './modals/new-folder-container/new-folder-container.component';
+import {NewFolderContentModal} from './modals/new-folder-content/new-folder-content-modal.component';
+import {SettingsComponent} from './settings/settings.component';
+import {NavbarComponent} from './navbar/navbar.component';
+import {TokenexpiredComponent} from './tokenexpired/tokenexpired.component';
+import {NgxGaugeModule} from 'ngx-gauge';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {EnvSettingsHttpService} from './env-settings/env-settings-http.service';
 
-export function app_Init(settingsHttpService: EnvSettingsHttpService) {
-    return () => settingsHttpService.initializeApp();
-}
+
+// export function loadConfigMap(config: EnvSettingsHttpService) {
+//     console.log('Init Function works');
+//     return () => {
+//         return config.initializeApp();
+//     };
+// }
 
 @NgModule({
     declarations: [
@@ -59,12 +63,19 @@ export function app_Init(settingsHttpService: EnvSettingsHttpService) {
         NgxChartsModule
     ],
     providers: [
+        // EnvSettingsHttpService,
+        // {
+        //     provide: APP_INITIALIZER,
+        //     useFactory: loadConfigMap,
+        //     deps: [EnvSettingsHttpService],
+        //     multi: true
+        // },
         authInterceptorProviders,
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ NewFolderContentModal ]
+    entryComponents: [NewFolderContentModal]
 })
 export class AppModule {
 }
