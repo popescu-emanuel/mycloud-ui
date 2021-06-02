@@ -21,10 +21,10 @@ export class NavbarComponent implements OnInit {
         private authenticationService: AuthService
     ) {
         // this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        this.currentUser = this.authenticationService.currentUserValue;
     }
 
     ngOnInit() {
-        this.currentUser = this.authenticationService.currentUserValue;
     }
 
     logout() {
