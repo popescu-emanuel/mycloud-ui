@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpBackend, HttpClient} from '@angular/common/http';
 import {EnvSettings} from './env-settings';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class EnvSettingsHttpService {
 
     settings: EnvSettings;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpBackend) {
     }
 
     initializeApp(): Promise<any> {

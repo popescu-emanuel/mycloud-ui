@@ -27,12 +27,12 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {EnvSettingsHttpService} from './env-settings/env-settings-http.service';
 
 
-// export function loadConfigMap(config: EnvSettingsHttpService) {
-//     console.log('Init Function works');
-//     return () => {
-//         return config.initializeApp();
-//     };
-// }
+export function loadConfigMap(config: EnvSettingsHttpService) {
+    console.log('Init Function works');
+    return () => {
+        return config.initializeApp();
+    };
+}
 
 @NgModule({
     declarations: [
