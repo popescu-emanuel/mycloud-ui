@@ -7,7 +7,7 @@ export class EnvSettingsHttpService {
 
     settings: EnvSettings;
 
-    constructor(private http: HttpBackend) {
+    constructor(private http: HttpClient) {
     }
 
     initializeApp(): Promise<any> {
