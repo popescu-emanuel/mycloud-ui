@@ -70,6 +70,14 @@ export class UploadFilesComponent implements OnInit, AfterViewInit, OnChanges {
         }
     }
 
+    private setBehaviourOnSuccessfullUpload() {
+        let uploadButton = document.getElementById('inputGroupFileAddon01');
+        let cleanButton = document.getElementById('inputGroupFileClean');
+        uploadButton.classList.replace('btn-input', 'btn-unavailable');
+        cleanButton.classList.replace('btn-input', 'btn-unavailable');
+    }
+
+
     upload() {
         console.log('Upload breadcrumb ' + this.breadcrumb);
         this.progress = 0;
@@ -81,7 +89,7 @@ export class UploadFilesComponent implements OnInit, AfterViewInit, OnChanges {
 
             cf.breadcrumb = new Array<string>();
             this.breadcrumb.forEach(value => {
-                cf.breadcrumb.push(value)
+                cf.breadcrumb.push(value);
             });
 
             this.cloudService.upload(cf).subscribe(

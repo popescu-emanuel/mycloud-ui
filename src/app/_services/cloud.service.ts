@@ -41,7 +41,7 @@ export class CloudService {
     upload(fileSpecs: UploadFileSpecification): Observable<any> {
         const endpoint = this.API_URL + '/upload';
 
-        let formData = new FormData();
+        const formData = new FormData();
         formData.append('file', fileSpecs.file);
         console.log('Before stringify ' + fileSpecs.breadcrumb);
 
@@ -56,7 +56,7 @@ export class CloudService {
     }
 
     createDir(fs: DirectorySpecification): Observable<any> {
-        let endpoint = this.API_URL + '/createdir';
+        const endpoint = this.API_URL + '/createdir';
         console.log('Calling ' + endpoint);
         console.log(fs);
 
@@ -64,13 +64,13 @@ export class CloudService {
     }
 
     delete(fs: SimpleFileSpecification): Observable<any> {
-        let endpoint = this.API_URL + '/delete';
+        const endpoint = this.API_URL + '/delete';
         console.log('Calling ' + endpoint);
         return this.http.post(endpoint, fs);
     }
 
     download(fs: SimpleFileSpecification): Observable<any> {
-        let endpoint = this.API_URL + '/download';
+        const endpoint = this.API_URL + '/download';
         console.log('Calling ' + endpoint);
         return this.http.post<any>(endpoint, fs, {
             reportProgress: true,
@@ -79,10 +79,15 @@ export class CloudService {
     }
 
     resetPassword(rpr: ResetPasswordRequest): Observable<any> {
-        let endpoint = this.API_URL + '/reset';
+        const endpoint = this.API_URL + '/reset';
         console.log('Calling ' + endpoint);
         return this.http.post<any>(endpoint, rpr);
     }
 
+    getMemoryAllocation(): Observable<any> {
+        const endpoint = this.API_URL + '/size';
+        console.log('Calling ' + endpoint);
+        return this.http.post(endpoint, {});
+    }
 
 }
