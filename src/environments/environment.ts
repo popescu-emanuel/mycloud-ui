@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 const API_PROTOCOL = 'http://';
-const API_URL      = '172.21.43.6';
+const API_URL      = '172.21.47.238';
 const API_PORT     = '30163';
 
 export const environment = {
