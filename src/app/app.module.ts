@@ -25,6 +25,7 @@ import {NgxGaugeModule} from 'ngx-gauge';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {EnvSettingsHttpService} from './env-settings/env-settings-http.service';
+import { SubscriptionTypeComponent } from './option/subscription-type/subscription-type.component';
 
 
 export function loadConfigMap(config: EnvSettingsHttpService) {
@@ -50,6 +51,7 @@ export function loadConfigMap(config: EnvSettingsHttpService) {
         SettingsComponent,
         NavbarComponent,
         TokenexpiredComponent,
+        SubscriptionTypeComponent,
     ],
     imports: [
         BrowserModule,
