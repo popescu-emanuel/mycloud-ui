@@ -8,8 +8,8 @@ const API_PORT     = '30163';
 
 export const environment = {
     production: false,
-    // baseUrl: 'http://localhost:8080',
-    baseUrl: API_PROTOCOL + API_URL + ':' + API_PORT
+    baseUrl: 'http://localhost:8080',
+    // baseUrl: API_PROTOCOL + API_URL + ':' + API_PORT
 };
 
 /*
