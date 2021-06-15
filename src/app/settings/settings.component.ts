@@ -7,6 +7,7 @@ import {ResetPasswordRequest} from '../_models/reset-password-request';
 import {UserService} from '../_services/user.service';
 import {AuthService} from '../_services/auth.service';
 import {User} from '../_models/user';
+import {SubscriptionType} from '../_models/subscriptionType';
 
 @Component({
     selector: 'app-settings',
@@ -24,6 +25,11 @@ export class SettingsComponent implements OnInit {
     folderFileRatio = [
         {name: 'Folders', value: 105000},
         {name: 'Files', value: 55000},
+    ];
+
+    subscriptionTypes = [
+        new SubscriptionType('BASIC', 5,5),
+        new SubscriptionType('PREMIUM',  10,10)
     ];
 
     checkoutForm: FormGroup;

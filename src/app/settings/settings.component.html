@@ -59,17 +59,17 @@
 
 
 <div class="text-center">
-    You're now using a standard subscription. Upgrade for improved functionality!
+    You're now using a <b>BASIC</b> subscription. Upgrade for improved functionality!
 </div>
 
 <div class="row text-center col-md-8 offset-md-2">
     <table class="table">
         <tr>
             <td class="text-center">
-                <app-subscription-type></app-subscription-type>
+                <app-subscription-type [subscriptionType]="subscriptionTypes[0]"></app-subscription-type>
             </td>
             <td class="text-center">
-                <app-subscription-type></app-subscription-type>
+                <app-subscription-type [subscriptionType]="subscriptionTypes[1]"></app-subscription-type>
             </td>
         </tr>
     </table>
