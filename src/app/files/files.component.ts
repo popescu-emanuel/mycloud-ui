@@ -1,12 +1,10 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+/* tslint:disable:prefer-const */
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {AuthService} from '../_services/auth.service';
 import {CloudService} from '../_services/cloud.service';
 import {FileResponse} from '../_models/fileResponse';
-import {EmitSignal} from "../_signals/EmitSignal";
-import {EmitSignalType} from "../_signals/EmitSignalType";
-import {UploadFileSpecification} from "../_models/uploadFileSpecification";
-import {SimpleFileSpecification} from "../_models/simpleFileSpecification";
-import {Observable} from "rxjs";
+import {SimpleFileSpecification} from '../_models/simpleFileSpecification';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-files',
@@ -18,8 +16,11 @@ export class FilesComponent implements OnInit, OnChanges {
     @Output() onUpdate = new EventEmitter<Array<string>>();
     @Input() eventInput: Observable<FileResponse[]>;
 
+    filteredList: FileResponse[];
     files: FileResponse[];
     breadcrumb: string[] = [];
+
+    @ViewChild('searchTableInput') searchTableInput: ElementRef;
 
     constructor(
         private authService: AuthService,
@@ -32,9 +33,11 @@ export class FilesComponent implements OnInit, OnChanges {
             data => {
                 console.log('Successfully retrieved data');
                 this.files = data;
+                this.filteredList = this.files;
             }, error => {
                 console.log('Error retrieving data');
                 this.files = [];
+                this.filteredList = [];
             }
         );
     }
@@ -80,8 +83,8 @@ export class FilesComponent implements OnInit, OnChanges {
         let fs = new SimpleFileSpecification();
         fs.breadcrumb = this.breadcrumb;
 
-        if(!this.isFolder(file)){
-            fs.filename = file.filename + "." + file.type;
+        if (!this.isFolder(file)) {
+            fs.filename = file.filename + '.' + file.type;
         } else {
             fs.filename = file.filename;
         }
@@ -104,8 +107,8 @@ export class FilesComponent implements OnInit, OnChanges {
         let fs = new SimpleFileSpecification();
         fs.breadcrumb = this.breadcrumb;
 
-        if(!this.isFolder(file)){
-            fs.filename = file.filename + "." + file.type;
+        if (!this.isFolder(file)) {
+            fs.filename = file.filename + '.' + file.type;
         } else {
             fs.filename = file.filename;
         }
@@ -137,8 +140,8 @@ export class FilesComponent implements OnInit, OnChanges {
     }
 
     public filesLength() {
-        if (Array.isArray(this.files)) {
-            return this.files.length;
+        if (Array.isArray(this.filteredList)) {
+            return this.filteredList.length;
         } else {
             console.log('Files has unknown type');
             return 0;
@@ -146,11 +149,11 @@ export class FilesComponent implements OnInit, OnChanges {
     }
 
     public isEmptyFileList() {
-        return this.files && this.filesLength() === 0;
+        return this.filteredList && this.filesLength() === 0;
     }
 
-    public isFolder(file: FileResponse){
-        if(file){
+    public isFolder(file: FileResponse) {
+        if (file) {
             return file.type === 'folder';
         } else {
             console.log('Folder check could not be performed, invalid input data');
@@ -159,7 +162,7 @@ export class FilesComponent implements OnInit, OnChanges {
 
     openFolder(file: FileResponse) {
         console.log('Try to open folder ' + file.filename);
-        if(this.isFolder(file)){
+        if (this.isFolder(file)) {
             this.breadcrumb.push(file.filename);
             this.cloudService.listFolder(this.breadcrumb).subscribe(
                 data => {
@@ -178,7 +181,7 @@ export class FilesComponent implements OnInit, OnChanges {
         this.doRefreshList();
     }
 
-    getIcon(file: FileResponse){
+    getIcon(file: FileResponse) {
         let response = '';
         switch (file.type) {
             case 'folder':
@@ -202,5 +205,21 @@ export class FilesComponent implements OnInit, OnChanges {
                 response = 'fa fa-file-alt fa-colored';
         }
         return response;
+    }
+
+    filterList($event: Event) {
+        let filterValue = (document.getElementById('searchTableInput') as HTMLInputElement).value;
+        if (filterValue === '') {
+            this.filteredList = this.files;
+            return;
+        }
+        filterValue = filterValue.toLowerCase();
+        this.filteredList = this.files
+            .filter(file =>
+                file.filename
+                    .trim()
+                    .toLowerCase()
+                    .includes(filterValue)
+            );
     }
 }

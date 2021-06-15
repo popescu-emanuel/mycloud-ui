@@ -2,15 +2,11 @@ import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CloudService} from '../_services/cloud.service';
-import {EmitSignal} from "../_signals/EmitSignal";
-import {EmitSignalType} from "../_signals/EmitSignalType";
-import {UploadFileSpecification} from "../_models/uploadFileSpecification";
+import {UploadFileSpecification} from '../_models/uploadFileSpecification';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NewFolderContentModal} from "../modals/new-folder-content/new-folder-content-modal.component";
-import {SimpleFileSpecification} from "../_models/simpleFileSpecification";
-import {DirectorySpecification} from "../_models/directorySpecification";
-import {FileResponse} from "../_models/fileResponse";
-import {map} from "rxjs/operators";
+import {NewFolderContentModal} from '../modals/new-folder-content/new-folder-content-modal.component';
+import {DirectorySpecification} from '../_models/directorySpecification';
+import {FileResponse} from '../_models/fileResponse';
 
 @Component({
     selector: 'app-uploadfiles',
@@ -62,8 +58,8 @@ export class UploadFilesComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     private setBehaviourOnFileSelection() {
-        let uploadButton = document.getElementById('inputGroupFileAddon01');
-        let cleanButton = document.getElementById('inputGroupFileClean');
+        const uploadButton = document.getElementById('inputGroupFileAddon01');
+        const cleanButton = document.getElementById('inputGroupFileClean');
         if (this.selectedFiles.length != 0) {
             uploadButton.classList.replace('btn-unavailable', 'btn-input');
             cleanButton.classList.replace('btn-unavailable', 'btn-input');
@@ -71,8 +67,8 @@ export class UploadFilesComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     private setBehaviourOnSuccessfullUpload() {
-        let uploadButton = document.getElementById('inputGroupFileAddon01');
-        let cleanButton = document.getElementById('inputGroupFileClean');
+        const uploadButton = document.getElementById('inputGroupFileAddon01');
+        const cleanButton = document.getElementById('inputGroupFileClean');
         uploadButton.classList.replace('btn-input', 'btn-unavailable');
         cleanButton.classList.replace('btn-input', 'btn-unavailable');
     }
@@ -84,7 +80,7 @@ export class UploadFilesComponent implements OnInit, AfterViewInit, OnChanges {
         Array.from(this.selectedFiles).forEach(currentFile => {
 
             this.currentFile = currentFile;
-            let cf = new UploadFileSpecification();
+            const cf = new UploadFileSpecification();
             cf.file = currentFile;
 
             cf.breadcrumb = new Array<string>();
@@ -119,7 +115,7 @@ export class UploadFilesComponent implements OnInit, AfterViewInit, OnChanges {
 
         modalRef.result.then((result) => {
             console.log('Folder name: ' + result.folderName);
-            let fs = new DirectorySpecification();
+            const fs = new DirectorySpecification();
             fs.folderName = result.folderName;
             fs.breadcrumb = this.breadcrumb;
             this.cloudService.createDir(fs).subscribe(
