@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     }
 
-
     onSubmit() {
         this.submitted = true;
 
@@ -59,12 +58,11 @@ export class LoginComponent implements OnInit {
                         0);
                 },
                 error => {
-                    this.errorMessage = error;
+                    this.errorMessage = 'The email address or the password are invalid, please try again!';
                     this.loading = false;
                 });
     }
 
-    // convenience getter for easy access to form fields
     get f() {
         return this.loginForm.controls;
     }

@@ -1,77 +1,99 @@
 <!--<ngx-gauge type="arch" value="100" max="200" label="Free space" append="mb"></ngx-gauge>-->
 
-<div class="row text-center">
-    <ngx-charts-advanced-pie-chart
-        [results]="dataStatistics"
-        [gradient]="true"
-        [scheme]="colorScheme"
-        class="col-md-4">
-    </ngx-charts-advanced-pie-chart>
+
+<div class="row">
+
+    <div class="col-md">
+        <br>
+        <div>Email: {{currentUser.email}}</div>
+        <div>Authority: {{currentUser.roles}}</div>
+        <div>Number of files:</div>
+        <div>Number of folders:</div>
+        <div>Free space:</div>
+        <div>Total capacity: {{currentUser.sizePlan.capacity}}GB</div>
+    </div>
+
+    <div class="col-md" style="max-height: 150px">
+        <ngx-charts-advanced-pie-chart
+            [results]="dataStatistics"
+            [gradient]="true"
+            [scheme]="colorScheme"
+            class="col-md-4">
+        </ngx-charts-advanced-pie-chart>
+
+    </div>
+
 </div>
 
-<br>
+<div style="min-height: 50px"></div>
+<hr>
+<div style="min-height: 50px"></div>
+
+
+<div class="row">
+    <form [formGroup]="checkoutForm" (ngSubmit)="resetPassword()" class="col-md text-center">
+
+        <div class="form-group offset-md-3 col-md-6">
+            <label>Old password</label>
+            <input type="password" formControlName="oldPassword" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.oldPassword.errors }"/>
+            <div *ngIf="submitted && f.oldPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.oldPassword.errors.required">Password is required</div>
+                <div *ngIf="f.oldPassword.errors.minlength">Password must be at least 1 characters</div>
+            </div>
+        </div>
+
+        <div class="form-group offset-md-3 col-md-6">
+            <label>New password</label>
+            <input type="password" formControlName="password" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.minlength">Password must be at least 1 characters</div>
+            </div>
+        </div>
+
+        <div class="form-group offset-md-3 col-md-6">
+            <label>Confirm Password</label>
+            <input type="password" formControlName="passwordConfirm" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.passwordConfirm.errors }"/>
+            <div *ngIf="submitted && f.passwordConfirm.errors" class="invalid-feedback">
+                <div *ngIf="f.passwordConfirm.errors.required">Confirm Password is required</div>
+                <div *ngIf="f.passwordConfirm.errors.mustMatch">Passwords must match</div>
+            </div>
+        </div>
+
+        <div class="form-group offset-md-3 col-md-6 text-center">
+            <button [disabled]="loading"
+                    class="btn btn-outline-success">
+                <span class="spinner-border spinner-border-sm" *ngIf="loading" role="status" aria-hidden="true"></span>
+                Reset password
+            </button>
+        </div>
+    </form>
+
+    <div class="col-md">
+        <div class="text-center">
+            You're now using a <b>{{currentUser.sizePlan.type}}</b> subscription. Upgrade for improved functionality!
+        </div>
+        <div style="min-height: 20px"></div>
+        <div class="row text-center col-md-8 offset-md-2">
+            <table class="table table-borderless">
+                <tr>
+                    <td class="text-center">
+                        <app-subscription-type [subscriptionType]="subscriptionTypes[0]"></app-subscription-type>
+                    </td>
+                    <td class="text-center">
+                        <app-subscription-type [subscriptionType]="subscriptionTypes[1]"></app-subscription-type>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
 <hr>
 <br>
 
-<form [formGroup]="checkoutForm" (ngSubmit)="resetPassword()" class="row text-center">
-
-    <div class="form-group offset-md-3 col-md-6">
-        <label>Old password</label>
-        <input type="password" formControlName="oldPassword" class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.oldPassword.errors }"/>
-        <div *ngIf="submitted && f.oldPassword.errors" class="invalid-feedback">
-            <div *ngIf="f.oldPassword.errors.required">Password is required</div>
-            <div *ngIf="f.oldPassword.errors.minlength">Password must be at least 1 characters</div>
-        </div>
-    </div>
-
-    <div class="form-group offset-md-3 col-md-6">
-        <label>New password</label>
-        <input type="password" formControlName="password" class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-            <div *ngIf="f.password.errors.minlength">Password must be at least 1 characters</div>
-        </div>
-    </div>
-
-    <div class="form-group offset-md-3 col-md-6">
-        <label>Confirm Password</label>
-        <input type="password" formControlName="passwordConfirm" class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.passwordConfirm.errors }"/>
-        <div *ngIf="submitted && f.passwordConfirm.errors" class="invalid-feedback">
-            <div *ngIf="f.passwordConfirm.errors.required">Confirm Password is required</div>
-            <div *ngIf="f.passwordConfirm.errors.mustMatch">Passwords must match</div>
-        </div>
-    </div>
-
-    <div class="form-group offset-md-3 col-md-6 text-center">
-        <button [disabled]="loading"
-                class="btn btn-outline-success">
-            <span class="spinner-border spinner-border-sm" *ngIf="loading" role="status" aria-hidden="true"></span>
-            Reset password
-        </button>
-    </div>
-</form>
-
-<hr>
-<br>
-
-
-<div class="text-center">
-    You're now using a <b>BASIC</b> subscription. Upgrade for improved functionality!
-</div>
-
-<div class="row text-center col-md-8 offset-md-2">
-    <table class="table">
-        <tr>
-            <td class="text-center">
-                <app-subscription-type [subscriptionType]="subscriptionTypes[0]"></app-subscription-type>
-            </td>
-            <td class="text-center">
-                <app-subscription-type [subscriptionType]="subscriptionTypes[1]"></app-subscription-type>
-            </td>
-        </tr>
-    </table>
-</div>
 

@@ -3,3 +3,14 @@
     vertical-align: middle;
 }
 
+.search-bar {
+    border: 0;
+}
+
+.search-bar:focus{
+    border: transparent;
+}
+
+.text-roboto {
+    font-family: Roboto, sans-serif !important;
+}

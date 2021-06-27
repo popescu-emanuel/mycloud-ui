@@ -28,8 +28,8 @@ export class SettingsComponent implements OnInit {
     ];
 
     subscriptionTypes = [
-        new SubscriptionType('BASIC', 5,5),
-        new SubscriptionType('PREMIUM',  10,10)
+        new SubscriptionType('GOLD', 5, 5),
+        new SubscriptionType('DIAMOND',  10, 10)
     ];
 
     checkoutForm: FormGroup;
@@ -37,7 +37,7 @@ export class SettingsComponent implements OnInit {
     errorMessage = '';
     submitted: boolean;
     loading: boolean;
-    private currentUser: User;
+    currentUser: User;
 
     constructor(
         private route: ActivatedRoute,
@@ -45,9 +45,9 @@ export class SettingsComponent implements OnInit {
         private cloudService: CloudService,
         private formBuilder: FormBuilder,
         private userService: UserService,
-        private authenticationService: AuthService) {
-        // this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        this.currentUser = this.authenticationService.currentUserValue;
+        private authenticationService: AuthService
+    ) {
+            this.currentUser = this.authenticationService.currentUserValue;
     }
 
     ngOnInit(): void {

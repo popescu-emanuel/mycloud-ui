@@ -22,7 +22,13 @@
             Login
         </button>
     </div>
-    <div *ngIf="errorMessage" class="alert alert-danger">
+
+    <div class="form-group text-center">
+        You don't have an account yet? Register
+        <a href="/register">here!</a>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-warning">
         {{errorMessage}}
     </div>
 </form>
